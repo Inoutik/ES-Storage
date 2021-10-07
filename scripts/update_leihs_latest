@@ -1,0 +1,12 @@
+#!/bin/bash -exu
+CHANNEL=${1:-stable}
+
+cd leihs
+git fetch
+git submodule foreach --recursive 'git reset --hard HEAD'
+git reset --hard "origin/${CHANNEL}"
+git submodule update --recursive --init --force
+
+cd -
+git add leihs
+git commit -m 'leihs: x.y.z' --edit
